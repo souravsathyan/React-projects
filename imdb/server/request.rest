@@ -1,0 +1,1 @@
+GET http://localhost:3000/all?page=1&limit=5&genre=Drama&sort=desc
