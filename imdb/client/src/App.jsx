@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import axios from "axios";
+import "./App.css";
+import { REACT_APP_API_URL } from "../constants";
+import Search from "./components/Search"
+import Table from "./components/Table"
+
+const base_url = REACT_APP_API_URL;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [obj, setObj] = useState([]);
+  const [sort, setSort] = useState({ sort: "rating", order: "desc" });
+  const [filterGenre, setFilterGenre] = useState([]);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
 
+  useEffect(() => {
+    const getAllMovies = async () => {
+      try {
+        const url = `${base_url}?page=${page}&sort=${sort.sort},${
+          sort.order
+        }&genre=${filterGenre.toString()}&search=${search}`;
+
+        const response = await axios.get(url);
+        const {data} = response
+        setObj(data)
+      } catch (error) {
+        console.log(error);
+      }
+    };getAllMovies();
+  },
+   [sort, filterGenre, page, search]);
+  console.log(obj?.response?.movies)
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      {/* wrapper */}
+      <div className="w-100 min-h-[100vh] flex items-center justify-center">
+        {/* container */}
+        <div className="w-[1000px] rounded-lg shadow-lg flex flex-col overflow-hidden bg-slate-50">
+          {/* head */}
+          <div className="flex items-center h-[80px] bg-black justify-between">
+            <h1 className="text-2xl font-bold text-slate-50 ms-8">IMDB</h1>
+            <Search setSearch={setSearch} />
+          </div>
+          {/* body */}
+          <div className="h-[500px] flex">
+            {/* table container */}
+            <div className="flex relative">
+            <Table movies={obj?.response?.movies ? obj?.response?.movies : []} />
+
+            </div>
+            {/* filter container */}
+            <div className="flex-1"></div>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
