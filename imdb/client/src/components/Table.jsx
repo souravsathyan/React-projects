@@ -1,7 +1,7 @@
 const Table = ({ movies }) => {
   return (
     <>
-      <div className="w-[1000px] rounded-lg shadow-lg flex flex-col overflow-hidden bg-slate-50">
+      <div className="w-[1000px] rounded-lg shadow-lg flex flex-col overflow-hidden bg-slate-50 relative">
         <div className="flex items-center justify-between h-[60px] text-center text-lg font-bold shadow-lg m-3 bd-slate-50 rounded-lg">
           {/* title */}
           <p className="text-lg font-bold text-black flex-2 text-left ms-3">
@@ -13,11 +13,10 @@ const Table = ({ movies }) => {
           <p className="text-lg font-bold text-black flex-1">Rating</p>
         </div>
         {movies.map((movie) => {
-            console.log(movie)
           return (
             <div
               className="flex items-center h-[70px] my-2 mx-[10px] shadow-lg cursor-pointer bg-slate-50 rounded-lg transition-all ease-in duration-75 hover:scale-105"
-              key={movie.id}
+              key={movie._id}
             >
                 <div className="flex-2 flex items-center object-cover">
                     <img src={movie.img} alt="movie" className="w-[40px] h-[60px] object-cover mx-[10px]" />

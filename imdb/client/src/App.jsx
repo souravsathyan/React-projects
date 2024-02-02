@@ -4,6 +4,7 @@ import "./App.css";
 import { REACT_APP_API_URL } from "../constants";
 import Search from "./components/Search"
 import Table from "./components/Table"
+import Pagination from "./components/Pagination"
 
 const base_url = REACT_APP_API_URL;
 
@@ -30,8 +31,8 @@ function App() {
     };getAllMovies();
   },
    [sort, filterGenre, page, search]);
-  console.log(obj?.response?.movies)
-  return (
+  console.log(obj?.response)
+  return !obj?.response ? (<h1 className="text-center">Loading</h1>) : (
     <>
       {/* wrapper */}
       <div className="w-100 min-h-[100vh] flex items-center justify-center">
@@ -45,9 +46,15 @@ function App() {
           {/* body */}
           <div className="h-[500px] flex">
             {/* table container */}
-            <div className="flex relative">
-            <Table movies={obj?.response?.movies ? obj?.response?.movies : []} />
-
+            <div className="flex-col flex relative">
+              
+            <Table movies={ obj?.response?.movies } />
+            <Pagination
+            page={page}
+            limit={obj?.response?.limit }
+            total={obj?.response?.total }
+            setPage={setPage}
+            />
             </div>
             {/* filter container */}
             <div className="flex-1"></div>
