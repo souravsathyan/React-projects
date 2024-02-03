@@ -10,7 +10,7 @@ const Header = () => {
         <div>
           <ul className="flex justify-evenly">
             <li className="me-4">
-              <Link to={"/about"}>About</Link>
+              <Link to={"/"}>Home</Link>
             </li>
             <li className="me-4">
               <Link to={"/login"}>Login</Link>
@@ -19,7 +19,7 @@ const Header = () => {
               <Link to={"/signup"}>Signup</Link>
             </li>
             <li className="me-4">
-              <Link to={"/profile"}>Profile</Link>
+              <Link to={"/about"}>About</Link>
             </li>
           </ul>
         </div>
