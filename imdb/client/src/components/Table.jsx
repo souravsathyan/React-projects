@@ -15,7 +15,7 @@ const Table = ({ movies }) => {
         {movies.map((movie) => {
           return (
             <div
-              className="flex items-center h-[70px] my-2 mx-[10px] shadow-lg cursor-pointer bg-slate-50 rounded-lg transition-all ease-in duration-75 hover:scale-105"
+              className="flex items-center h-[70px] my-2 mx-[10px] shadow-lg cursor-pointer bg-slate-50 rounded-lg transition-all ease-in duration-75 hover:scale-105 z-[999]"
               key={movie._id}
             >
                 <div className="flex-2 flex items-center object-cover">
