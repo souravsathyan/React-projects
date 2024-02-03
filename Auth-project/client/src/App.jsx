@@ -8,7 +8,6 @@ function App() {
       <div className="px-[100px]">
         <Header />
         <Outlet />
-        <h1>Footer</h1>
       </div>
     </>
   );

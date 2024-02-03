@@ -21,6 +21,7 @@ const prodErrors = (res,error)=>{
     }
 }
 export const globalErrorHandler = (error,req,res,next)=>{
+    console.log(error)
     error.statusCode = error.statusCode || 500
     error.status = error.status || 'error'
     if(process.env.NODE_ENV == 'developement'){
