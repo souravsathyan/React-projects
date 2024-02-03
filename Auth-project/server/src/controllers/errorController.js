@@ -1,6 +1,6 @@
 const devErrors = (res,error)=>{
     res.status(error.statusCode).json({
-        status: error.statusCode,
+        status: false,
         message: error.message,
         stackTrace: error.stack,
         error: error
@@ -10,12 +10,12 @@ const devErrors = (res,error)=>{
 const prodErrors = (res,error)=>{
     if(error.isOperational){
         res.status(error.statusCode).json({
-            status: error.statusCode,
+            status: false,
             message: error.message
         });
     }else {
         res.status(500).json({
-            status: 'error',
+            status: false,
             message: 'Something went wrong! Please try again later.'
         })
     }

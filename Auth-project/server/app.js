@@ -3,10 +3,12 @@ import authRouter  from "./src/routes/authRouter.js"
 import userRouter from "./src/routes/userRouter.js"
 import {CustomError} from "./src/utils/customError.js"
 import {globalErrorHandler} from "./src/controllers/errorController.js"
+import cors from "cors"
 
 export const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 app.use('/api/auth', authRouter)
 
