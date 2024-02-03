@@ -1,7 +1,9 @@
-import { useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import {useSelector, useDispatch} from "react-redux"
+import {loginFailure, loginSuccess, loginStart} from "../redux/userSlice.js"
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -16,14 +18,13 @@ const initialValues = {
 };
 
 const Login = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const {loading, error} = useSelector((store)=>store.user)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleSubmit = async (values) => {
     try {
-      setLoading(true);
-      setError(false);
+      dispatch(loginStart())
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -32,15 +33,14 @@ const Login = () => {
         body: JSON.stringify(values),
       });
       const data = await res.json();
-      setLoading(false);
       if (data.status == false) {
-        setError(true);
+        dispatch(loginFailure(data.message))
         return;
       }
+      dispatch(loginSuccess(data))
       navigate('/')
     } catch (err) {
-      setError(true);
-      setLoading(false);
+      dispatch(loginFailure(err))
     }
   };
   return (
@@ -100,7 +100,7 @@ const Login = () => {
         </Link>
       </div>
       <p className="text-red-700 mt-5">
-        {error && "Something went wrong please try again"}
+        {error ? error || "Something went wrong please try again" : ""}
       </p>
     </div>
   );
