@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import {useSelector, useDispatch} from "react-redux"
 import {loginFailure, loginSuccess, loginStart} from "../redux/userSlice.js"
+import OAuth from "../components/OAuth.jsx"
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -80,6 +81,7 @@ const Login = () => {
               onChange={handleChange}
               values={values.password}
               onBlur={handleBlur}
+              autoComplete="on"
             />
             {errors.password && touched.password && errors.password}
 
@@ -90,6 +92,7 @@ const Login = () => {
             >
               {loading ? "Loading.." : "Login"}
             </button>
+            <OAuth/>
           </form>
         )}
       </Formik>

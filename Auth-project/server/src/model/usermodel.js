@@ -15,6 +15,11 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         required:true,
+        select: false
+    },
+    profilePictureUrl:{
+        type:String,
+        default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz_hPrEDS3XE8LQIEQRNSSMzc8IryJhz_iXQ&usqp=CAU"
     }
 }, {timestamps:true})
 
