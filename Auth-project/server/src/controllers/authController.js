@@ -28,7 +28,7 @@ export const userSignup = asyncErrorHandler(async (req, res, next) => {
 
 export const userLogin = asyncErrorHandler(async (req, res, next) => {
     const { email, password } = req.body
-    const validUser = await User.findOne({ email })
+    const validUser = await User.findOne({ email }).select('+password')
     if (!validUser) {
         const error = new CustomError('Invalid credentials', 404)
         next(error)
@@ -45,7 +45,7 @@ export const userLogin = asyncErrorHandler(async (req, res, next) => {
 });
 
 export const googleAuth = ayncErrorHandler(async(req,res,next)=>{
-    const user = await User.findOne({email:req.body.email})
+    const user = await User.findOne({email:req.body.email}).select('+password')
         if(user){
             const token = signToken(user._id)
             const expiryDate = new Date(Date.now() + 360000)//1hr
