@@ -15,13 +15,6 @@ const Header = () => {
               <Link to={"/"}>Home</Link>
             </li>
 
-            <li className="me-4">
-              <Link to={"/login"}>Login</Link>
-            </li>
-
-            <li className="me-4">
-              <Link to={"/signup"}>Signup</Link>
-            </li>
 
             <li className="me-4">
               <Link to={"/about"}>About</Link>
@@ -33,7 +26,7 @@ const Header = () => {
               </Link>
             ) : (
               <li className="me-4">
-                <Link to={"/signup"}>Signup</Link>
+                <Link to={"/login"}>Login</Link>
               </li>
             )}
             

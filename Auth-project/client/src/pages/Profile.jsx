@@ -8,7 +8,9 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import {
-  updateUserFailure,updateUserStart,updateUserSuccess
+  updateUserFailure,updateUserStart,updateUserSuccess,deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure
 } from "../redux/userSlice"
 
 const Profile = () => {
@@ -76,6 +78,24 @@ const Profile = () => {
       setUpdateSuccess(true)
     }catch(err){
       dispatch(updateUserFailure(err))
+    }
+  }
+
+  const handleDeleteUser =async ()=>{
+    console.log('delete')
+    try{
+      dispatch(deleteUserStart())
+      const res = await fetch(`/api/user/delete/${currentUser._id}`,{
+        method:"DELETE",
+      })
+      const data = res.json()
+      if(!data.status){
+        dispatch(deleteUserFailure(data))
+      }
+      dispatch(deleteUserSuccess())
+    }catch(err){
+      dispatch(deleteUserFailure(err))
+
     }
   }
 
@@ -150,7 +170,7 @@ const Profile = () => {
         </button>
         </form>
         <div className="flex justify-between mt-5">
-          <span className="text-red-700 cursor-pointer">Delete Account</span>
+          <span className="text-red-700 cursor-pointer" onClick={handleDeleteUser}>Delete Account</span>
           <span className="text-red-700 cursor-pointer">Sign out</span>
         </div>
         <p className="text-red-600 mt-5">{error && 'Something went wrong'}</p>

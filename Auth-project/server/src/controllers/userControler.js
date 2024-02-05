@@ -42,3 +42,15 @@ export const updateUser = asyncErrorHandler(async(req,res,next)=>{
     )
     res.status(201).json(updatedUser)
 })
+
+export const deleteUser = asyncErrorHandler(async(req,res,next)=>{
+    const userId = req.user.id
+    const paramsId= req.params.id
+
+    if(userId !== paramsId){
+        const error = new CustomError('user id not matching',401)
+        next(error)
+    }
+    await User.findByIdAndDelete(paramsId)
+    res.status(200).json("user deleted successfully")
+})
