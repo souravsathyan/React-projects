@@ -3,7 +3,6 @@ import { CustomError } from "./customError.js"
 
 export const verifyToken = (req, res, next) => {
     const token = req.cookies.access_token
-    console.log(token)
 
     if (!token) {
         const error = new CustomError('Access denied', 401)
