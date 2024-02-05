@@ -1,7 +1,9 @@
+import Home from "./Home"
+
 const About = ()=>{
     return (
         <>
-            <div>About Page</div>
+            <Home title={'About'}/>
         </>
     )
 }
