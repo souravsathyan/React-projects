@@ -54,3 +54,7 @@ export const deleteUser = asyncErrorHandler(async(req,res,next)=>{
     await User.findByIdAndDelete(paramsId)
     res.status(200).json("user deleted successfully")
 })
+
+export const logout = asyncErrorHandler(async(req,res,next)=>{
+    res.clearCookie('access_token').status(200).json("logout success")
+}) 

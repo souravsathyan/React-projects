@@ -10,7 +10,8 @@ import {
 import {
   updateUserFailure,updateUserStart,updateUserSuccess,deleteUserStart,
   deleteUserSuccess,
-  deleteUserFailure
+  deleteUserFailure,
+  logout
 } from "../redux/userSlice"
 
 const Profile = () => {
@@ -99,6 +100,15 @@ const Profile = () => {
     }
   }
 
+  const handleLogout = async ()=>{
+    try{
+      await fetch('/api/user/logout')
+      dispatch(logout())
+    }catch(err){
+      console.log(err)
+    }
+  }
+
   return (
     <>
       <div className="p-3 max-w-lg mx-auto">
@@ -164,6 +174,7 @@ const Profile = () => {
             placeholder="Password"
             className="bg-slate-100 rounded-lg p-3"
             onChange={handleChange}
+            autoComplete="on"
           />
           <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
           {loading ? 'Loading...' : 'Update'}
@@ -171,7 +182,7 @@ const Profile = () => {
         </form>
         <div className="flex justify-between mt-5">
           <span className="text-red-700 cursor-pointer" onClick={handleDeleteUser}>Delete Account</span>
-          <span className="text-red-700 cursor-pointer">Sign out</span>
+          <span className="text-red-700 cursor-pointer" onClick={handleLogout}>Sign out</span>
         </div>
         <p className="text-red-600 mt-5">{error && 'Something went wrong'}</p>
         <p className="text-green-600 mt-5">{updateSuccess && 'User updated successfully'}</p>
