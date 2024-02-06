@@ -1,0 +1,14 @@
+### features
+- login sgnup page
+    - login/signup form
+    - once done redirect to browser page
+- browse page (after authentication)
+    - Header
+    - main movie
+    - trailer in bg
+    - title n discription
+    - movie suggestions
+        - movie lists
+- NetflixGPT
+    - Search bar
+    - Movie suggestions
