@@ -57,6 +57,7 @@ const Login = () => {
               email:email,
               displayName:displayName
             }))
+            navigate('/browse')
           })
           console.log(user);
         })
@@ -76,6 +77,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+          navigate('/browse')
           console.log(user);
           // ...
         })
@@ -87,7 +89,7 @@ const Login = () => {
         });
     }
 
-    navigate('/browse')
+    
   };
   return (
     <div>
