@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux"
 import { addUser,removeUser } from '../Utils/store/userSlice'
 import { onAuthStateChanged } from "firebase/auth";
 
+
 const Header = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -22,16 +23,18 @@ const Header = () => {
   }
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, email, displayName } = user;
-        dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+        const { uid, email, displayName,photoURL} = user;
+        dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL:photoURL}));
         navigate('/browse')
     } else {
         dispatch(removeUser())
         navigate('/')
       }
     });
+    // unsubscribe when component unmount
+    return ()=> unSubscribe()
   }, []);
 
   return (
@@ -41,7 +44,7 @@ const Header = () => {
       {
         user && (
           <div className='flex p-2'>
-        <img className='w-12 h-12 ' src={USER_AVATAR} alt="" />
+        <img className='w-12 h-12 rounded-lg' src={user.photoURL} alt="" />
         <button onClick={handleSignOut} className='text-white font-bold'>(Sign Out)</button>
       </div>
         )

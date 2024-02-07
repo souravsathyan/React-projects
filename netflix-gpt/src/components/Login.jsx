@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { BG_URL } from "../Utils/constants";
+import { BG_URL, USER_AVATAR } from "../Utils/constants";
 import Header from "./Header";
 import checkValidData from "../Utils/validate";
 import {
@@ -8,7 +8,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../Utils/firebase";
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import { addUser } from "../Utils/store/userSlice";
 
 
@@ -17,6 +17,7 @@ const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errMessage, setErrMessage] = useState(null);
   const dispatch = useDispatch()
+  
 
 
   const name = useRef(null);
@@ -46,13 +47,15 @@ const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           updateProfile(user,{
-            displayName:name.current.value
+            displayName:name.current.value,
+            photoURL:USER_AVATAR
           }).then(()=>{
-            const {uid, email, displayName} = auth.currentUser
+            const {uid, email, displayName,photoURL} = auth.currentUser
             dispatch(addUser({
               uid:uid,
               email:email,
-              displayName:displayName
+              displayName:displayName,
+              photoURL:photoURL
             }))
             
           })
