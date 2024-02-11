@@ -8,7 +8,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../Utils/firebase";
-import {useDispatch, useSelector} from "react-redux"
+import {useDispatch} from "react-redux"
 import { addUser } from "../Utils/store/userSlice";
 
 
@@ -32,7 +32,7 @@ const Login = () => {
     const message = checkValidData(
       email.current.value,
       password.current.value,
-      name.current.value
+      name?.current?.value
     );
     setErrMessage(message);
     if (message) return;

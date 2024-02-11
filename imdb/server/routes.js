@@ -90,17 +90,5 @@ router.route('/all').get(async(req, res) => {
     }
 })
 
-// const insertMovies = async () => {
-//     try {
-//         const docs = await Movie.insertMany(movies);
-//         return Promise.resolve(docs);
-//     } catch (err) {
-//         return Promise.reject(err)
-//     }
-// };
-
-// insertMovies()
-//     .then((docs) => console.log(docs))
-//     .catch((err) => console.log(err))
 
 module.exports = router
